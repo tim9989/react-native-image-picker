@@ -464,6 +464,13 @@ RCT_EXPORT_METHOD(showImagePicker:(NSDictionary *)options callback:(RCTResponseS
                 }
             }
 
+            NSNumber *fileSizeValue = nil;
+            NSError *fileSizeError = nil;
+            [videoDestinationURL getResourceValue:&fileSizeValue forKey:NSURLFileSizeKey error:&fileSizeError];
+            if (fileSizeValue){
+                [self.response setObject:fileSizeValue forKey:@"fileSize"];
+            }
+            
             [self.response setObject:videoDestinationURL.absoluteString forKey:@"uri"];
             if (videoRefURL.absoluteString) {
                 [self.response setObject:videoRefURL.absoluteString forKey:@"origURL"];
